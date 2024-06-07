@@ -26,8 +26,6 @@ export class AuthService {
     if (!passwordMatch) throw new UnauthorizedException('Invalid credentials');
 
     const payload = { sub: user.id };
-    console.log('access_token')
-    console.log({ access_token: await this.jwtService.signAsync(payload) })
     return { access_token: await this.jwtService.signAsync(payload) };
   }
 }

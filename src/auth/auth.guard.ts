@@ -1,4 +1,10 @@
-import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Observable } from 'rxjs';
 
@@ -7,28 +13,23 @@ export class AuthGuard implements CanActivate {
   @Inject()
   private readonly jwtService: JwtService;
 
-  async canActivate(
-    context: ExecutionContext,
-  ): Promise<boolean> {
-    const request = context.switchToHttp().getRequest();//similar aos middlewares
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest(); //similar aos middlewares
     const authorization = this.extractTokenFromHeader(request);
     if (!authorization) throw new UnauthorizedException('Token is required');
 
     try {
       const payload = this.jwtService.verify(authorization, {
         secret: process.env.SECRET_KEY,
-      })
-      request.userId = payload;
+      });
+      request['sub'] = payload;
     } catch (error) {
-      throw new UnauthorizedException('Invalid Token')
+      throw new UnauthorizedException('Invalid Token');
     }
     return true;
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {
-    console.log(request)
-    console.log('process.env.SECRET_KEY')
-    console.log(process.env.SECRET_KEY)
     const [type, token] = request.headers['authorization']?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
   }
