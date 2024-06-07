@@ -10,8 +10,8 @@ export class QuestionsService {
 
   async create(createQuestionDto: CreateQuestionDto, userId: number) {
     return await this.prisma.questions.create({
-      data: { ...createQuestionDto, userId }
-    })
+      data: { ...createQuestionDto, userId },
+    });
     // return 'This action adds a new question';
   }
 
@@ -21,20 +21,20 @@ export class QuestionsService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.questions.findUnique({ where: { id } })
+    return await this.prisma.questions.findUnique({ where: { id } });
     // return `This action returns a #${id} question`;
   }
 
   async update(id: number, updateQuestionDto: UpdateQuestionDto) {
     return await this.prisma.questions.update({
       where: { id },
-      data: updateQuestionDto
-    })
+      data: updateQuestionDto,
+    });
     // return `This action updates a #${id} question`;
   }
 
   async remove(id: number) {
-    return await this.prisma.questions.delete({ where: { id } })
+    return await this.prisma.questions.delete({ where: { id } });
     // return `This action removes a #${id} question`;
   }
 }
