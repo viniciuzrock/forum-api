@@ -1,6 +1,6 @@
-import { Questions } from "@prisma/client";
+import { Questions } from '@prisma/client';
 
-export class Question implements Questions{
+export class Question implements Questions {
   id: number;
   title: string;
   body: string;

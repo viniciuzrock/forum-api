@@ -9,10 +9,18 @@ export class UserService {
   private readonly prisma: PrismaService;
 
   async user(
-    UserWhereUniqueInput: Prisma.UserWhereUniqueInput,
-  ): Promise<User | null> {
+    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
+  ): Promise<Omit<User, 'password'> | null> {
     return this.prisma.user.findUnique({
-      where: UserWhereUniqueInput,
+      where: userWhereUniqueInput,
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        password: false,
+        createdAt: true,
+        updatedAt: true
+      }
     });
   }
 

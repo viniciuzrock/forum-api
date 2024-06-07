@@ -1,6 +1,6 @@
-import { Answers } from "@prisma/client";
-import { User } from "../../user/entities/user.entity"
-import { Question } from '../../questions/entities/question.entity'
+import { Answers } from '@prisma/client';
+import { User } from '../../user/entities/user.entity';
+import { Question } from '../../questions/entities/question.entity';
 
 export class Answer implements Answers {
   id: number;
@@ -10,5 +10,5 @@ export class Answer implements Answers {
   userId: number;
   questionId: number;
   user: User;
-  question: Question
+  question: Question;
 }
